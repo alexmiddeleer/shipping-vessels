@@ -1,0 +1,34 @@
+<template>
+  <div class="console">
+    <pre><!--
+      --><code v-for="event in lastFiftyEvents" :key=event.id><!--
+        -->{{event.date.toISOString()}}: {{event.message}}<br /><!--
+      --></code><!--
+    --></pre>
+  </div>
+</template>
+
+<script>
+export default {
+  name: "Console",
+  computed: {
+    lastFiftyEvents: function() {
+      const count = Math.min(50, this.events.length);
+      return this.events.slice(0 - count).reverse();
+    }
+  },
+  props: {
+    events: Array
+  }
+};
+</script>
+
+<style scoped>
+.console {
+  text-align: left;
+  background-color: gray;
+  color: lightgray;
+  max-height: 300px;
+  overflow: scroll;
+}
+</style>
