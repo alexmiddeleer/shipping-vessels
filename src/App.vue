@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <Grid />
-    <Console :events="events" />
+    <Console style="display:none" :events="events" />
     <img alt="Vue logo" src="./assets/logo.png" />
     <HelloWorld msg="Welcome to Your Vue.js App" />
   </div>
