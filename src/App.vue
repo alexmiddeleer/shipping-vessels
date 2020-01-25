@@ -11,6 +11,7 @@
 import HelloWorld from "./components/HelloWorld.vue";
 import Grid from "./components/grid.vue";
 import Console from "./components/Console.vue";
+import GridState from "./lib/GridState";
 
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
@@ -30,6 +31,7 @@ export default {
   },
   created: async function() {
     // eslint-disable-next-line
+    const gridState = new GridState();
     while (this.events.length < 5000) {
       this.events.push({
         date: new Date(),
