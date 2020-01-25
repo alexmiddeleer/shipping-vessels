@@ -1,3 +1,8 @@
+export const WAVE = "🌊";
+export const BOAT = "🚢";
+export const PORT = "🌆";
 export default class GridCell {
-  constructor() {}
+  constructor(type = WAVE) {
+    this.type = type;
+  }
 }

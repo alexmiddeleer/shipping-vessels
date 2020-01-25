@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <Grid />
+    <Grid :gridState="gridState" />
     <Console style="display:none" :events="events" />
     <img alt="Vue logo" src="./assets/logo.png" />
     <HelloWorld msg="Welcome to Your Vue.js App" />
@@ -21,7 +21,8 @@ export default {
   name: "app",
   data: function() {
     return {
-      events: []
+      events: [],
+      gridState: new GridState()
     };
   },
   components: {
@@ -30,8 +31,6 @@ export default {
     Console
   },
   created: async function() {
-    // eslint-disable-next-line
-    const gridState = new GridState();
     while (this.events.length < 5000) {
       this.events.push({
         date: new Date(),
