@@ -9,6 +9,8 @@
 </template>
 
 <script>
+import { when, DEBUG_EVENT } from "../lib/event-bus.js";
+
 export default {
   name: "Console",
   data() {
@@ -23,7 +25,7 @@ export default {
     }
   },
   created() {
-    document.documentElement.addEventListener("app-event", e => {
+    when(DEBUG_EVENT, e => {
       if (this.events.length < 5000) {
         this.events.push(e.detail);
       }
