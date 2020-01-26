@@ -11,14 +11,23 @@
 <script>
 export default {
   name: "Console",
+  data() {
+    return {
+      events: []
+    };
+  },
   computed: {
     lastFiftyEvents: function() {
       const count = Math.min(50, this.events.length);
       return this.events.slice(0 - count).reverse();
     }
   },
-  props: {
-    events: Array
+  created() {
+    document.documentElement.addEventListener("app-event", e => {
+      if (this.events.length < 5000) {
+        this.events.push(e.detail);
+      }
+    });
   }
 };
 </script>
