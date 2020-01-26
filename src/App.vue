@@ -1,14 +1,14 @@
 <template>
   <div id="app">
     <Grid :gridState="gridState" />
+    <button :style="buttonStyles" v-on:click="togglePause">
+      Toggle Pause <span v-if="paused">(Currently Paused)</span>
+    </button>
     <Console />
-    <img alt="Vue logo" src="./assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
   </div>
 </template>
 
 <script>
-import HelloWorld from "./components/HelloWorld.vue";
 import Grid from "./components/grid.vue";
 import Console from "./components/Console.vue";
 import GridState from "./lib/GridState";
@@ -18,16 +18,22 @@ export default {
   name: "app",
   data: function() {
     return {
-      gridState: new GridState()
+      gridState: new GridState(),
+      paused: false,
+      buttonStyles: { fontSize: "20px", padding: "20px" }
     };
   },
   components: {
-    HelloWorld,
     Grid,
     Console
   },
   created: function() {
-    startEventLoop();
+    startEventLoop(this);
+  },
+  methods: {
+    togglePause() {
+      this.paused = !this.paused;
+    }
   }
 };
 </script>
@@ -35,7 +41,6 @@ export default {
 <style>
 #app {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
-  text-align: center;
   color: #2c3e50;
   margin-top: 60px;
 }
