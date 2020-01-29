@@ -5,17 +5,14 @@ import CartesianCoords from "./CartesianCoordinates.js";
 const rowLen = 20;
 const columnLen = 20;
 
-class Port {
+class MapObject {
   constructor(x, y) {
     this.coords = new CartesianCoords(x, y);
   }
 }
 
-class Ship {
-  constructor(x, y) {
-    this.coords = new CartesianCoords(x, y);
-  }
-}
+class Port extends MapObject {}
+class Ship extends MapObject {}
 
 export default class GridState {
   constructor() {
@@ -48,7 +45,7 @@ export default class GridState {
     const { ships, ports } = this;
     if (ports.find(p => p.coords.equals(x, y))) {
       return new GridCell(PORT);
-    } else if (ships.find(p => p.coords.equals(x, y))) {
+    } else if (ships.find(s => s.coords.equals(x, y))) {
       return new GridCell(SHIP);
     } else {
       return new GridCell();
