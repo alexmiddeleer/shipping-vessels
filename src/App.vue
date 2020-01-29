@@ -28,9 +28,7 @@ export default {
     Console
   },
   created: function() {
-    setTimeout(function() {
-      initAppState(this);
-    }, 10);
+    setTimeout(() => initAppState(this), 10);
   },
   methods: {
     togglePause() {
