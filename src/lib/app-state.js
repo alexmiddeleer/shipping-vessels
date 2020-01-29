@@ -5,11 +5,7 @@ import AppEvent, {
   InitEvent
 } from "./event-bus.js";
 
-function sleep(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
-}
-
-export default function init(app) {
+export default function initAppState(app) {
   when(INIT_EVENT, onInit);
   // let event handlers register before starting
   setTimeout(() => pushEvent(new InitEvent(app)), 10);
@@ -22,7 +18,7 @@ function onInit(e) {
 async function startEventLoop(app) {
   // eslint-disable-next-line
   while (true) {
-    // for each ship
+    app.gridState.ships.forEach(() => {});
     // if that ship is not at port, move one unit towards destination port
     // if that ship is at port, randomly pick different port to visit
     if (!app.paused) {
@@ -30,4 +26,8 @@ async function startEventLoop(app) {
     }
     await sleep(1000);
   }
+}
+
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
 }

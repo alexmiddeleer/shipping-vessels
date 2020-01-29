@@ -1,5 +1,5 @@
 export const WAVE = "🌊";
-export const BOAT = "🚢";
+export const SHIP = "🚢";
 export const PORT = "🌆";
 export default class GridCell {
   constructor(type = WAVE) {
