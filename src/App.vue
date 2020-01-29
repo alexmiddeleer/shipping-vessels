@@ -12,7 +12,7 @@
 import Grid from "./components/grid.vue";
 import Console from "./components/Console.vue";
 import GridState from "./lib/GridState";
-import startEventLoop from "./lib/app-state";
+import initAppState from "./lib/app-state.js";
 
 export default {
   name: "app",
@@ -28,7 +28,9 @@ export default {
     Console
   },
   created: function() {
-    startEventLoop(this);
+    setTimeout(function() {
+      initAppState(this);
+    }, 10);
   },
   methods: {
     togglePause() {

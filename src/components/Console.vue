@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import { when, DEBUG_EVENT } from "../lib/event-bus.js";
+import { registerDebugger } from "../lib/event-bus.js";
 
 export default {
   name: "Console",
@@ -25,7 +25,7 @@ export default {
     }
   },
   created() {
-    when(DEBUG_EVENT, e => {
+    registerDebugger(e => {
       if (this.events.length < 5000) {
         this.events.push(e.detail);
       }
