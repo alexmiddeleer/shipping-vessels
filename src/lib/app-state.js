@@ -10,10 +10,13 @@ function sleep(ms) {
 }
 
 export default function init(app) {
-  when(INIT_EVENT, e => {
-    startEventLoop(e.detail.app);
-  });
-  pushEvent(new InitEvent(app));
+  when(INIT_EVENT, onInit);
+  // let event handlers register before starting
+  setTimeout(() => pushEvent(new InitEvent(app)), 10);
+}
+
+function onInit(e) {
+  startEventLoop(e.detail.app);
 }
 
 async function startEventLoop(app) {
