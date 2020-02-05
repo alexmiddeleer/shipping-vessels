@@ -1,15 +1,9 @@
 import GridCell from "./GridCell";
 import { PORT } from "./GridCell.js";
 import { SHIP } from "./GridCell.js";
-import CartesianCoords from "./CartesianCoordinates.js";
+import MapObject from "./MapObject.js";
 const rowLen = 20;
 const columnLen = 20;
-
-class MapObject {
-  constructor(x, y) {
-    this.coords = new CartesianCoords(x, y);
-  }
-}
 
 class Port extends MapObject {}
 class Ship extends MapObject {}
