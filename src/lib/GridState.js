@@ -1,12 +1,10 @@
 import GridCell from "./GridCell";
 import { PORT } from "./GridCell.js";
 import { SHIP } from "./GridCell.js";
-import MapObject from "./MapObject.js";
+import Ship from "./Ship.js";
+import Port from "./Port.js";
 const rowLen = 20;
 const columnLen = 20;
-
-class Port extends MapObject {}
-class Ship extends MapObject {}
 
 export default class GridState {
   constructor() {
