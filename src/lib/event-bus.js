@@ -1,6 +1,7 @@
 export const DEBUG_EVENT = "app-debug";
 export const INIT_EVENT = "app-init";
 export const TICK_EVENT = "app-tick";
+export const MOVEMENT_EVENT = "map-obj-move";
 
 const debuggers = [];
 
@@ -44,5 +45,11 @@ export class TickEvent extends AppEvent {
   constructor(app) {
     super(TICK_EVENT, "tick occurred");
     this.app = app;
+  }
+}
+
+export class MovementEvent extends AppEvent {
+  constructor() {
+    super(MOVEMENT_EVENT, "map object moved");
   }
 }

@@ -1,6 +1,7 @@
 import GridCell from "./GridCell";
 import { PORT } from "./GridCell.js";
 import { SHIP } from "./GridCell.js";
+import { when, MOVEMENT_EVENT } from "./event-bus.js";
 import Ship from "./Ship.js";
 import Port from "./Port.js";
 const rowLen = 20;
@@ -20,6 +21,7 @@ export default class GridState {
     this.ships = ships;
     this.ports = ports;
     this.rebuildGrid();
+    this.initEventHandler();
   }
 
   rebuildGrid() {
@@ -42,5 +44,11 @@ export default class GridState {
     } else {
       return new GridCell();
     }
+  }
+
+  initEventHandler() {
+    when(MOVEMENT_EVENT, () => {
+      this.rebuildGrid();
+    });
   }
 }
