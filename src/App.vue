@@ -12,7 +12,8 @@
 import Grid from "./components/grid.vue";
 import Console from "./components/Console.vue";
 import GridState from "./lib/GridState";
-import initAppState from "./lib/app-state.js";
+import initEventLoop from "./lib/event-loop.js";
+import initShipMovement from "./lib/ship-movement.js";
 
 export default {
   name: "app",
@@ -28,7 +29,8 @@ export default {
     Console
   },
   created: function() {
-    initAppState(this);
+    initEventLoop(this);
+    initShipMovement();
   },
   methods: {
     togglePause() {

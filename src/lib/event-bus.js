@@ -1,5 +1,6 @@
 export const DEBUG_EVENT = "app-debug";
 export const INIT_EVENT = "app-init";
+export const TICK_EVENT = "app-tick";
 
 const debuggers = [];
 
@@ -35,6 +36,13 @@ export default class AppEvent {
 export class InitEvent extends AppEvent {
   constructor(app) {
     super(INIT_EVENT, "app initialized");
+    this.app = app;
+  }
+}
+
+export class TickEvent extends AppEvent {
+  constructor(app) {
+    super(TICK_EVENT, "tick occurred");
     this.app = app;
   }
 }

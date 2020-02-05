@@ -1,4 +1,5 @@
-import AppEvent, {
+import {
+  TickEvent,
   pushEvent,
   when,
   INIT_EVENT,
@@ -11,18 +12,12 @@ export default function initAppState(app) {
   setTimeout(() => pushEvent(new InitEvent(app)), 10);
 }
 
-function onInit(e) {
-  startEventLoop(e.detail.app);
-}
-
-async function startEventLoop(app) {
+async function onInit(e) {
+  const app = e.detail.app;
   // eslint-disable-next-line
   while (true) {
-    app.gridState.ships.forEach(() => {});
-    // if that ship is not at port, move one unit towards destination port
-    // if that ship is at port, randomly pick different port to visit
     if (!app.paused) {
-      pushEvent(new AppEvent());
+      pushEvent(new TickEvent(app));
     }
     await sleep(1000);
   }
