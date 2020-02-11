@@ -13,7 +13,8 @@ export default class MapObject {
   }
 
   updateCoords(coords) {
+    const oldCoords = new CartesianCoords(this.coords.x, this.coords.y);
     this.#coords = coords;
-    pushEvent(new MovementEvent(coords));
+    pushEvent(new MovementEvent(coords, oldCoords));
   }
 }
