@@ -20,7 +20,8 @@ export default {
 <style scoped>
 .frame {
   text-align: left;
-  background-color: #0018c1;
-  display: block;
+  display: inline-block;
+  border: 5px solid lightblue;
+  border-radius: 10px;
 }
 </style>
