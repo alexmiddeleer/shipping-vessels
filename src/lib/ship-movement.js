@@ -10,17 +10,18 @@ export default function init() {
       const shipCoords = ship.coords;
       const portCoords = ship.destinationPort.coords;
       if (shipCoords.equals(portCoords)) {
-        // set a new destination port
-        // eslint-disable-next-line
-        console.log("shipCoords: ", shipCoords);
-        // eslint-disable-next-line
-        console.log("portCoords: ", portCoords);
+        ship.destinationPort = getRandomPort(app.gridState.ports);
       } else {
         // move ship towards current destination port
         moveCloserToPort(ship);
       }
     });
   });
+}
+
+function getRandomPort(ports) {
+  const randomIndex = Math.floor(Math.random() * ports.length);
+  return ports[randomIndex];
 }
 
 function moveCloserToPort(ship) {
