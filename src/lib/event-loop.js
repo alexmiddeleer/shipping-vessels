@@ -6,6 +6,8 @@ import {
   InitEvent
 } from "./event-bus.js";
 
+const TICK_LEN_MS = 300;
+
 export default function initAppState(app) {
   when(INIT_EVENT, onInit);
   // let event handlers register before starting
@@ -19,7 +21,7 @@ async function onInit(e) {
     if (!app.paused) {
       pushEvent(new TickEvent(app));
     }
-    await sleep(1000);
+    await sleep(TICK_LEN_MS);
   }
 }
 

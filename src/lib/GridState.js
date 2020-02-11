@@ -1,6 +1,4 @@
-import GridCell from "./GridCell";
-import { PORT } from "./GridCell.js";
-import { SHIP } from "./GridCell.js";
+import GridCell, { PORT, SHIP, OCCUPIED_PORT } from "./GridCell";
 import CartesianCoords from "./CartesianCoordinates.js";
 import { when, MOVEMENT_EVENT } from "./event-bus.js";
 import Ship from "./Ship.js";
@@ -43,9 +41,13 @@ export default class GridState {
   rebuildGridCell(x, y) {
     const { ships, ports } = this;
     const cellCoords = new CartesianCoords(x, y);
-    if (ports.find(p => p.coords.equals(cellCoords))) {
+    const isPort = ports.find(p => p.coords.equals(cellCoords));
+    const isShip = ships.find(s => s.coords.equals(cellCoords));
+    if (isPort && isShip) {
+      return new GridCell(OCCUPIED_PORT);
+    } else if (isPort) {
       return new GridCell(PORT);
-    } else if (ships.find(s => s.coords.equals(cellCoords))) {
+    } else if (isShip) {
       return new GridCell(SHIP);
     } else {
       return new GridCell();
