@@ -3,7 +3,10 @@ export default class CartesianCoords {
     this.x = x;
     this.y = y;
   }
-  equals(x, y) {
-    return this.x === x && this.y === y;
+  equals(coords) {
+    if (!coords) {
+      return false;
+    }
+    return this.x === coords.x && this.y === coords.y;
   }
 }
