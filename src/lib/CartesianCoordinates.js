@@ -9,4 +9,7 @@ export default class CartesianCoords {
     }
     return this.x === coords.x && this.y === coords.y;
   }
+  toString() {
+    return `x: ${this.x}, y: ${this.y}`;
+  }
 }

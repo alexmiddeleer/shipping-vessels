@@ -49,7 +49,7 @@ export class TickEvent extends AppEvent {
 }
 
 export class MovementEvent extends AppEvent {
-  constructor() {
-    super(MOVEMENT_EVENT, "map object moved");
+  constructor(coords) {
+    super(MOVEMENT_EVENT, `map object moved to ${coords}`);
   }
 }

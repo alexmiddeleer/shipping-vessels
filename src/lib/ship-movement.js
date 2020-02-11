@@ -8,13 +8,33 @@ export default function init() {
       // if that ship is not at port, move one unit towards destination port
 
       const shipCoords = ship.coords;
-      const portCoords = ship.destinationPort;
+      const portCoords = ship.destinationPort.coords;
       if (shipCoords.equals(portCoords)) {
         // set a new destination port
+        // eslint-disable-next-line
+        console.log("shipCoords: ", shipCoords);
+        // eslint-disable-next-line
+        console.log("portCoords: ", portCoords);
       } else {
         // move ship towards current destination port
-        ship.updateCoords(new CartesianCoords(1, 1));
+        moveCloserToPort(ship);
       }
     });
   });
+}
+
+function moveCloserToPort(ship) {
+  const shipCoords = ship.coords;
+  const portCoords = ship.destinationPort.coords;
+
+  const diffX = portCoords.x - shipCoords.x;
+  const diffY = portCoords.y - shipCoords.y;
+
+  const mvmtX = Math.min(Math.max(diffX, -1), 1);
+  const mvmtY = Math.min(Math.max(diffY, -1), 1);
+
+  const newX = shipCoords.x + mvmtX;
+  const newY = shipCoords.y + mvmtY;
+
+  ship.updateCoords(new CartesianCoords(newX, newY));
 }

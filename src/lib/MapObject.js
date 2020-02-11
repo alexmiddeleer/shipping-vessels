@@ -14,6 +14,6 @@ export default class MapObject {
 
   updateCoords(coords) {
     this.#coords = coords;
-    pushEvent(new MovementEvent());
+    pushEvent(new MovementEvent(coords));
   }
 }

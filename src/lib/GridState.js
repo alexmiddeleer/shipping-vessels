@@ -10,12 +10,16 @@ const columnLen = 20;
 
 export default class GridState {
   constructor() {
-    const ships = [new Ship(2, 2), new Ship(10, 18), new Ship(16, 4)];
     const ports = [
       new Port(5, 11),
       new Port(12, 17),
       new Port(3, 6),
       new Port(13, 5)
+    ];
+    const ships = [
+      new Ship(2, 2, ports[0]),
+      new Ship(10, 18, ports[1]),
+      new Ship(16, 4, ports[2])
     ];
     const rows = [];
     this.rows = rows;
