@@ -11,7 +11,17 @@ export function registerDebugger(cb) {
 
 function beforeEvent(e) {
   debuggers.forEach(cb => cb(e));
+  storeEvent(e);
   return e;
+}
+
+function storeEvent(e) {
+  const events = sessionStorage.getItem("events") || "";
+  const serialized = e.detail.toJson();
+  if (events.length > 50000) {
+    return; // TODO - truncate old events
+  }
+  sessionStorage.setItem("events", `${events}%%%${serialized}`);
 }
 
 export function when(evtName, cb) {
@@ -31,6 +41,18 @@ export default class AppEvent {
     this.date = new Date();
     this.type = type;
     this.message = message;
+  }
+
+  toPojo() {
+    return {
+      date: this.date,
+      type: this.type,
+      message: this.message
+    };
+  }
+
+  toJson() {
+    return JSON.stringify(this.toPojo());
   }
 }
 
