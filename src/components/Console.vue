@@ -26,9 +26,10 @@ export default {
   },
   created() {
     registerDebugger(e => {
-      if (this.events.length < 5000) {
-        this.events.push(e.detail);
+      if (this.events.length >= 5000) {
+        this.events.slice(1000);
       }
+      this.events.push(e.detail);
     });
   }
 };
