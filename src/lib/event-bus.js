@@ -12,6 +12,9 @@ export function registerDebugger(cb) {
 function beforeEvent(e) {
   debuggers.forEach(cb => cb(e));
   storeEvent(e);
+  const debugEvents = loadEvents();
+  // eslint-disable-next-line
+  console.log("debugEvents: ", debugEvents);
   return e;
 }
 
@@ -21,7 +24,12 @@ function storeEvent(e) {
   if (events.length > 50000) {
     return; // TODO - truncate old events
   }
-  sessionStorage.setItem("events", `${events}%%%${serialized}`);
+  sessionStorage.setItem("events", `${events}%%${serialized}`);
+}
+
+function loadEvents() {
+  const events = sessionStorage.getItem("events");
+  return events;
 }
 
 export function when(evtName, cb) {
