@@ -2,6 +2,8 @@ export const DEBUG_EVENT = "app-debug";
 export const INIT_EVENT = "app-init";
 export const TICK_EVENT = "app-tick";
 export const MOVEMENT_EVENT = "map-obj-move";
+import { storeEvent } from "./event-storage.js";
+import { loadEvents } from "./event-storage.js";
 
 const debuggers = [];
 
@@ -16,20 +18,6 @@ function beforeEvent(e) {
   // eslint-disable-next-line
   console.log("debugEvents: ", debugEvents);
   return e;
-}
-
-function storeEvent(e) {
-  const events = sessionStorage.getItem("events") || "";
-  const serialized = e.detail.toJson();
-  if (events.length > 50000) {
-    return; // TODO - truncate old events
-  }
-  sessionStorage.setItem("events", `${events}%%${serialized}`);
-}
-
-function loadEvents() {
-  const events = sessionStorage.getItem("events");
-  return events;
 }
 
 export function when(evtName, cb) {
