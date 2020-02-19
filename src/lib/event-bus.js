@@ -1,9 +1,9 @@
-export const DEBUG_EVENT = "app-debug";
 export const INIT_EVENT = "app-init";
 export const TICK_EVENT = "app-tick";
 export const MOVEMENT_EVENT = "map-obj-move";
 import { storeEvent } from "./event-storage.js";
 import { loadEvents } from "./event-storage.js";
+export AppEvent from './events/app';
 
 const debuggers = [];
 
@@ -30,33 +30,6 @@ export function pushEvent(evt) {
   });
   beforeEvent(customEvent);
   document.documentElement.dispatchEvent(customEvent);
-}
-
-export default class AppEvent {
-  constructor(type = DEBUG_EVENT, message = "debug event") {
-    this.date = new Date();
-    this.type = type;
-    this.message = message;
-  }
-
-  toPojo() {
-    return {
-      date: this.date,
-      type: this.type,
-      message: this.message
-    };
-  }
-
-  toJson() {
-    return JSON.stringify(this.toPojo());
-  }
-}
-
-export class InitEvent extends AppEvent {
-  constructor(app) {
-    super(INIT_EVENT, "app initialized");
-    this.app = app;
-  }
 }
 
 export class TickEvent extends AppEvent {
