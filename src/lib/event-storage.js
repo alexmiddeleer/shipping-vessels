@@ -1,6 +1,6 @@
 const DELIMITER = '%%';
 
-import { MovementEvent, MOVEMENT_EVENT } from './event-bus';
+import AppEvent, { MovementEvent, MOVEMENT_EVENT } from './event-bus';
 
 export function storeEvent(e) {
   const serializedEvents = sessionStorage.getItem("events") || "";
@@ -25,12 +25,7 @@ export function loadEvents() {
 function deserializeEvents(serializedEvents) {
   const eventStrings = serializedEvents.split(DELIMITER);
   return eventStrings.map(event => {
-    try {
-      return createEventFromType(JSON.parse(event));
-    } catch (error) {
-      // eslint-disable-next-line
-      console.error('error parsing', event);
-    }
+    return createEventFromType(JSON.parse(event));
   });
 }
 
@@ -41,5 +36,5 @@ function createEventFromType(pojo) {
   if (pojo.type === MOVEMENT_EVENT) {
     return new MovementEvent(pojo.coords, pojo.oldCoords);
   }
-  return pojo;
+  return new AppEvent(pojo.type, pojo.message);
 }

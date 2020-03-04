@@ -46,6 +46,11 @@ describe('store-event', () => {
 });
 
 describe('loadEvents', () => {
+    it('throws error if no type', () => {
+        const mockObj = {}
+        sessionStorage.setItem('events', JSON.stringify(mockObj));
+        expect(loadEvents).toThrow();
+    });
     it('app event deserialize', () => {
         const mockObj = {
             type: 'foo',
