@@ -1,0 +1,9 @@
+{
+  "parser": "babel-eslint",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "modules": true
+    }
+  },
+  "globals": { "describe": true, "it": true, "expect": true }
+}
