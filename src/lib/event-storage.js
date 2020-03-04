@@ -1,15 +1,11 @@
 const DELIMITER = '%%';
 
+import { MovementEvent, MOVEMENT_EVENT } from './event-bus';
+
 export function storeEvent(e) {
   const serializedEvents = sessionStorage.getItem("events") || "";
   let newSerializedEvent;
-  try {
-    newSerializedEvent = e.detail.toJson();
-  } catch (error) {
-    // eslint-disable-next-line
-    console.log('failure to serialize', e);
-    return;
-  }
+  newSerializedEvent = e.detail.toJson();
   if (serializedEvents.length > 50000) {
     return; // TODO - truncate old events
   }
@@ -28,15 +24,22 @@ export function loadEvents() {
 
 function deserializeEvents(serializedEvents) {
   const eventStrings = serializedEvents.split(DELIMITER);
-  // eslint-disable-next-line
-  console.log('eventStrings', eventStrings);
   return eventStrings.map(event => {
     try {
-      return JSON.parse(event);
+      return createEventFromType(JSON.parse(event));
     } catch (error) {
       // eslint-disable-next-line
       console.error('error parsing', event);
     }
   });
+}
 
+function createEventFromType(pojo) {
+  if (!pojo.type) {
+    throw new Error('not a valid event - event must have a type');
+  }
+  if (pojo.type === MOVEMENT_EVENT) {
+    return new MovementEvent(pojo.coords, pojo.oldCoords);
+  }
+  return pojo;
 }
