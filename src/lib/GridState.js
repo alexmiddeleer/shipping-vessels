@@ -6,20 +6,18 @@ import Port from "./Port.js";
 const rowLen = 20;
 const columnLen = 20;
 
-let mapItemIdIndex = 0;
-
 export default class GridState {
   constructor() {
     const ports = [
-      new Port(5, 11, mapItemIdIndex++),
-      new Port(12, 17, mapItemIdIndex++),
-      new Port(3, 6, mapItemIdIndex++),
-      new Port(13, 5, mapItemIdIndex++)
+      new Port(5, 11, 1),
+      new Port(12, 17, 2),
+      new Port(3, 6, 3),
+      new Port(13, 5, 4)
     ];
     const ships = [
-      new Ship(2, 2, mapItemIdIndex++, ports[0]),
-      new Ship(10, 18, mapItemIdIndex++, ports[1]),
-      new Ship(16, 4, mapItemIdIndex++, ports[2])
+      new Ship(2, 2, 5, ports[0]),
+      new Ship(10, 18, 6, ports[1]),
+      new Ship(16, 4, 7, ports[2])
     ];
     const rows = [];
     this.rows = rows;

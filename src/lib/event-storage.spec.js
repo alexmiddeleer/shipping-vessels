@@ -65,7 +65,7 @@ describe('loadEvents', () => {
         sessionStorage.setItem('events', mockMovementEventSerialized);
         const result = loadEvents();
         expect(result[0].type).toBe(MOVEMENT_EVENT);
-        expect(result[0].oldCoords).toMatchObject({ "x": 2, "y": 3 });
+        expect(result[0]).toMatchObject({ "x": 2, "y": 3 });
         expect(result[0].coords).toMatchObject({ "x": 2, "y": 3 });
     });
 });

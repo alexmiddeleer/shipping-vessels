@@ -1,6 +1,7 @@
 const DELIMITER = '%%';
 
 import AppEvent, { MovementEvent, MOVEMENT_EVENT } from './event-bus';
+import CartesianCoords from './CartesianCoordinates';
 
 export function storeEvent(e) {
   const serializedEvents = sessionStorage.getItem("events") || "";
@@ -35,7 +36,9 @@ function createEventFromType(pojo) {
   }
   if (pojo.type === MOVEMENT_EVENT) {
     if (pojo.id) {
-      return new MovementEvent(pojo.coords, pojo.oldCoords, pojo.id);
+      const coords = new CartesianCoords(pojo.coords.x, pojo.coords.y);
+      const oldCoords = new CartesianCoords(pojo.oldCoords.x, pojo.oldCoords.y);
+      return new MovementEvent(coords, oldCoords, pojo.id);
     } else {
       console.warn('Found a movement event with no id', pojo.id);
     }
