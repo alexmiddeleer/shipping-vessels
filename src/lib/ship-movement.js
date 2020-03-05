@@ -1,4 +1,4 @@
-import { when, TICK_EVENT } from "./event-bus.js";
+import { when, TICK_EVENT, MovementEvent, pushEvent } from "./event-bus.js";
 import CartesianCoords from "./CartesianCoordinates.js";
 
 export default function init() {
@@ -33,5 +33,6 @@ function moveCloserToPort(ship) {
   const newX = shipCoords.x + mvmtX;
   const newY = shipCoords.y + mvmtY;
 
-  ship.updateCoords(new CartesianCoords(newX, newY));
+  pushEvent(new MovementEvent(new CartesianCoords(newX, newY), shipCoords, ship.id));
+  // ship.updateCoords(new CartesianCoords(newX, newY));
 }

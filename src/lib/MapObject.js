@@ -3,9 +3,15 @@ import { MovementEvent, pushEvent } from "./event-bus.js";
 
 export default class MapObject {
   #coords;
+  #id;
 
-  constructor(x, y) {
+  constructor(x, y, id) {
     this.#coords = new CartesianCoords(x, y);
+    this.#id = id;
+  }
+
+  get id() {
+    return this.#id;
   }
 
   get coords() {
@@ -15,6 +21,6 @@ export default class MapObject {
   updateCoords(coords) {
     const oldCoords = new CartesianCoords(this.coords.x, this.coords.y);
     this.#coords = coords;
-    pushEvent(new MovementEvent(coords, oldCoords));
+    // pushEvent(new MovementEvent(coords, oldCoords));
   }
 }

@@ -6,18 +6,20 @@ import Port from "./Port.js";
 const rowLen = 20;
 const columnLen = 20;
 
+let mapItemIdIndex = 0;
+
 export default class GridState {
   constructor() {
     const ports = [
-      new Port(5, 11),
-      new Port(12, 17),
-      new Port(3, 6),
-      new Port(13, 5)
+      new Port(5, 11, mapItemIdIndex++),
+      new Port(12, 17, mapItemIdIndex++),
+      new Port(3, 6, mapItemIdIndex++),
+      new Port(13, 5, mapItemIdIndex++)
     ];
     const ships = [
-      new Ship(2, 2, ports[0]),
-      new Ship(10, 18, ports[1]),
-      new Ship(16, 4, ports[2])
+      new Ship(2, 2, mapItemIdIndex++, ports[0]),
+      new Ship(10, 18, mapItemIdIndex++, ports[1]),
+      new Ship(16, 4, mapItemIdIndex++, ports[2])
     ];
     const rows = [];
     this.rows = rows;
@@ -55,8 +57,22 @@ export default class GridState {
   }
 
   initEventHandler() {
-    when(MOVEMENT_EVENT, () => {
+    when(MOVEMENT_EVENT, ({ detail: { id, coords } }) => {
+      const mapObject = this.findMapObject(id);
+      mapObject.updateCoords(coords);
       this.rebuildGrid();
     });
+  }
+
+  findMapObject(id) {
+    const foundShip = this.ships.find(s => s.id === id);
+    if (foundShip) {
+      return foundShip
+    }
+    const foundPort = this.ports.find(p => p.id === id);
+    if (foundPort) {
+      return foundPort
+    }
+    throw new Error(`failed to find map object with id: ${id}`);
   }
 }

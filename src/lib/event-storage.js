@@ -34,7 +34,14 @@ function createEventFromType(pojo) {
     throw new Error('not a valid event - event must have a type');
   }
   if (pojo.type === MOVEMENT_EVENT) {
-    return new MovementEvent(pojo.coords, pojo.oldCoords);
+    if (pojo.id) {
+      return new MovementEvent(pojo.coords, pojo.oldCoords, pojo.id);
+    } else {
+      console.warn('Found a movement event with no id', pojo.id);
+    }
+    // const m = new MovementEvent(pojo.coords, pojo.oldCoords);
+    // console.log(m);
+    // return m
   }
   return new AppEvent(pojo.type, pojo.message);
 }

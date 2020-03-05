@@ -34,7 +34,7 @@ describe('store-event', () => {
     it('should serialize movement events', () => {
         const mockCoords = new CartesianCoords(2, 3);
         storeEvent(new CustomEvent('foo', {
-            detail: new MovementEvent(mockCoords, mockCoords)
+            detail: new MovementEvent(mockCoords, mockCoords, 1)
         }));
 
         const expected = JSON.parse(mockMovementEventSerialized);

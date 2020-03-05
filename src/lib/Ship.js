@@ -3,8 +3,8 @@ import MapObject from "./MapObject.js";
 export default class Ship extends MapObject {
   #destinationPort;
 
-  constructor(x, y, destPort) {
-    super(x, y);
+  constructor(x, y, id, destPort) {
+    super(x, y, id);
     this.#destinationPort = destPort;
   }
 

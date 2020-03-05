@@ -1,9 +1,13 @@
 <template>
   <div id="app">
-    <Grid :gridState="gridState" />
-    <button :style="buttonStyles" v-on:click="togglePause">
-      Toggle Pause <span v-if="paused">(Currently Paused)</span>
+    <Grid :grid-state="gridState" />
+    <button :style="buttonStyles" @click="togglePause">
+      <span v-if="paused">▶</span>
+      <!--
+      -->
+      <span v-if="!paused">⏸</span>
     </button>
+    <button :style="buttonStyles" @click="replay">Replay 🔃</button>
     <Console />
   </div>
 </template>
@@ -12,29 +16,36 @@
 import Grid from "./components/grid.vue";
 import Console from "./components/Console.vue";
 import GridState from "./lib/GridState";
-import initEventLoop from "./lib/event-loop.js";
+import initEventLoop, { replayEvents } from "./lib/event-loop.js";
 import initShipMovement from "./lib/ship-movement.js";
 
 export default {
-  name: "app",
-  data: function() {
-    return {
-      gridState: new GridState(),
-      paused: false,
-      buttonStyles: { fontSize: "20px", padding: "20px" }
-    };
-  },
+  name: "App",
   components: {
     Grid,
     Console
   },
+  data: function() {
+    return {
+      gridState: new GridState(),
+      paused: true,
+      buttonStyles: { fontSize: "20px", padding: "20px" }
+    };
+  },
   created: function() {
+    sessionStorage.clear();
+    console.log("cleared session storage");
     initEventLoop(this);
     initShipMovement();
   },
   methods: {
     togglePause() {
       this.paused = !this.paused;
+    },
+    replay() {
+      this.paused = true;
+      this.gridState = new GridState();
+      replayEvents();
     }
   }
 };
