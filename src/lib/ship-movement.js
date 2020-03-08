@@ -3,8 +3,8 @@ import { TICK_EVENT } from "./TickEvent.js";
 import CartesianCoords from "./CartesianCoordinates.js";
 import MovementEvent from "./MovementEvent.js";
 
-export default function init() {
-  when(TICK_EVENT, ({ detail: { app } }) => {
+export default function init(app) {
+  when(TICK_EVENT, () => {
     app.gridState.ships.forEach(ship => {
       const shipCoords = ship.coords;
       const portCoords = ship.destinationPort.coords;

@@ -1,8 +1,9 @@
 <template>
   <div class="console">
     <pre><!--
-      --><code v-for="event in lastFiftyEvents" :key="event.timestamps"><!--
-        -->{{event.date.toISOString()}}: {{event.message}}<br /><!--
+      --><code v-for="event in lastFiftyEvents"
+               :key="event.timestamps"><!--
+        -->{{ event.date && event.date.toIsoString && event.date.toISOString() }}: {{ event.message }}<br /><!--
       --></code><!--
     --></pre>
   </div>

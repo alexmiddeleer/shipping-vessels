@@ -34,9 +34,10 @@ export default {
   },
   created: function() {
     sessionStorage.clear();
+    // eslint-disable-next-line
     console.log("cleared session storage");
     initEventLoop(this);
-    initShipMovement();
+    initShipMovement(this);
   },
   methods: {
     togglePause() {

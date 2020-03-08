@@ -1,5 +1,6 @@
+import eventDeserializer from "./event-deserializer.js";
+
 const DELIMITER = "%%";
-import eventDeserializer from './event-deserializer.js';
 
 export function storeEvent(e) {
   const serializedEvents = sessionStorage.getItem("events") || "";

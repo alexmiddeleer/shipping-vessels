@@ -18,7 +18,6 @@ export default class MapObject {
   }
 
   updateCoords(coords) {
-    const oldCoords = new CartesianCoords(this.coords.x, this.coords.y);
-    this.#coords = coords;
+    this.#coords = new CartesianCoords(coords.x, coords.y);
   }
 }

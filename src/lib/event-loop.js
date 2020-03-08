@@ -5,15 +5,16 @@ import InitEvent, { INIT_EVENT } from "./InitEvent.js";
 import { loadEvents } from "./event-storage";
 
 const TICK_LEN_MS = 300;
+let app;
 
-export default function initAppState(app) {
+export default function initAppState(theApp) {
+  app = theApp;
   when(INIT_EVENT, onInit);
   // let event handlers register before starting
   setTimeout(() => pushEvent(new InitEvent(app)), 10);
 }
 
-async function onInit(e) {
-  const app = e.detail.app;
+async function onInit() {
   // eslint-disable-next-line
   while (true) {
     if (!app.paused) {
