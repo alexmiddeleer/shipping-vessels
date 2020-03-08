@@ -1,4 +1,5 @@
 const DELIMITER = "%%";
+import eventDeserializer from './event-deserializer.js';
 
 export function storeEvent(e) {
   const serializedEvents = sessionStorage.getItem("events") || "";
@@ -26,25 +27,6 @@ export function loadEvents() {
 function deserializeEvents(serializedEvents) {
   const eventStrings = serializedEvents.split(DELIMITER);
   return eventStrings.map(event => {
-    return createEventFromType(JSON.parse(event));
+    return eventDeserializer(JSON.parse(event));
   });
-}
-
-function createEventFromType(pojo) {
-  // if (!pojo.type) {
-  //   throw new Error("not a valid event - event must have a type");
-  // }
-  // if (pojo.type === MOVEMENT_EVENT) {
-  //   if (pojo.id) {
-  //     const coords = new CartesianCoords(pojo.coords.x, pojo.coords.y);
-  //     const oldCoords = new CartesianCoords(pojo.oldCoords.x, pojo.oldCoords.y);
-  //     return new MovementEvent(coords, oldCoords, pojo.id);
-  //   } else {
-  //     console.warn("Found a movement event with no id", pojo.id);
-  //   }
-  //   // const m = new MovementEvent(pojo.coords, pojo.oldCoords);
-  //   // console.log(m);
-  //   // return m
-  // }
-  // return new AppEvent(pojo.type, pojo.message);
 }

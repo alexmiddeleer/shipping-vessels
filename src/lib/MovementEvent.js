@@ -3,13 +3,12 @@ import AppEvent from "./AppEvent.js";
 export const MOVEMENT_EVENT = "map-obj-move";
 
 export default class MovementEvent extends AppEvent {
-  constructor(coords, oldCoords, id, date = new Date(), message = "") {
+  constructor(coords, oldCoords, id, date = new Date()) {
     super(MOVEMENT_EVENT, `map object moved to ${coords} from ${oldCoords}`);
     this.coords = coords;
     this.oldCoords = oldCoords;
     this.id = id;
     this.date = date;
-    this.message = message;
   }
 
   toPojo() {

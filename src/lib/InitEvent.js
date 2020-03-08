@@ -7,4 +7,8 @@ export default class InitEvent extends AppEvent {
     super(INIT_EVENT, "app initialized");
     this.app = app;
   }
+
+  static fromPojo() {
+    return new InitEvent();
+  }
 }

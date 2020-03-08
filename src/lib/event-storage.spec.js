@@ -2,6 +2,9 @@ import { storeEvent, loadEvents } from "./event-storage";
 import MovementEvent, { MOVEMENT_EVENT } from "./MovementEvent.js";
 import CartesianCoords from "./CartesianCoordinates";
 
+const coords = (x, y) => new CartesianCoords(x, y);
+const makeEvent = detail => new CustomEvent("foo", { detail });
+
 beforeEach(() => {
   sessionStorage.clear();
   sessionStorage.setItem.mockClear();
@@ -32,12 +35,7 @@ describe("store-event", () => {
     expect(sessionStorage.setItem).toHaveBeenLastCalledWith("events", "{}%%{}");
   });
   it("should serialize movement events", () => {
-    const mockCoords = new CartesianCoords(2, 3);
-    storeEvent(
-      new CustomEvent("foo", {
-        detail: new MovementEvent(mockCoords, mockCoords, 1)
-      })
-    );
+    storeEvent(makeEvent(new MovementEvent(coords(2, 3), coords(2, 3), 1)));
 
     const expected = JSON.parse(mockMovementEventSerialized);
     const actual = JSON.parse(sessionStorage.setItem.mock.calls[0][1]);

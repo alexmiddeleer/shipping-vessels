@@ -7,4 +7,8 @@ export default class TickEvent extends AppEvent {
     super(TICK_EVENT, "tick occurred");
     this.app = app;
   }
+
+  static fromPojo() {
+    return new TickEvent();
+  }
 }
