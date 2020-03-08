@@ -1,37 +1,33 @@
-const DELIMITER = '%%'
-
-// import AppEvent from "./event-bus";
-// import CartesianCoords from "./CartesianCoordinates";
-// import MovementEvent, { MOVEMENT_EVENT } from "./MovementEvent.js";
+const DELIMITER = "%%";
 
 export function storeEvent(e) {
-  const serializedEvents = sessionStorage.getItem('events') || ''
-  let newSerializedEvent
-  newSerializedEvent = e.detail.toJson()
+  const serializedEvents = sessionStorage.getItem("events") || "";
+  let newSerializedEvent;
+  newSerializedEvent = e.detail.toJson();
   if (serializedEvents.length > 50000) {
-    return // TODO - truncate old events
+    return; // TODO - truncate old events
   }
   if (!serializedEvents.length) {
-    sessionStorage.setItem('events', `${newSerializedEvent}`)
+    sessionStorage.setItem("events", `${newSerializedEvent}`);
   } else {
     sessionStorage.setItem(
-      'events',
+      "events",
       `${serializedEvents}${DELIMITER}${newSerializedEvent}`
-    )
+    );
   }
 }
 
 export function loadEvents() {
-  const eventsSerialized = sessionStorage.getItem('events')
-  const eventsDeserialized = deserializeEvents(eventsSerialized)
-  return eventsDeserialized
+  const eventsSerialized = sessionStorage.getItem("events");
+  const eventsDeserialized = deserializeEvents(eventsSerialized);
+  return eventsDeserialized;
 }
 
 function deserializeEvents(serializedEvents) {
-  const eventStrings = serializedEvents.split(DELIMITER)
-  return eventStrings.map((event) => {
-    return createEventFromType(JSON.parse(event))
-  })
+  const eventStrings = serializedEvents.split(DELIMITER);
+  return eventStrings.map(event => {
+    return createEventFromType(JSON.parse(event));
+  });
 }
 
 function createEventFromType(pojo) {
