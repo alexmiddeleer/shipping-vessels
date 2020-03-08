@@ -1,12 +1,8 @@
-import {
-  TickEvent,
-  pushEvent,
-  when,
-  INIT_EVENT,
-  InitEvent
-} from "./event-bus.js";
+import { pushEvent, when } from "./event-bus.js";
+import TickEvent from "./TickEvent.js";
+import InitEvent, { INIT_EVENT } from "./InitEvent.js";
 
-import { loadEvents } from './event-storage';
+import { loadEvents } from "./event-storage";
 
 const TICK_LEN_MS = 300;
 
@@ -30,7 +26,7 @@ async function onInit(e) {
 export async function replayEvents() {
   const loadedEvents = loadEvents();
   // eslint-disable-next-line
-  console.log('loadedEvents', loadedEvents);
+  console.log("loadedEvents", loadedEvents);
   // eslint-disable-next-line
   for (const event of loadedEvents) {
     pushEvent(event);

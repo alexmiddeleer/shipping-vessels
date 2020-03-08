@@ -1,6 +1,7 @@
 import GridCell, { PORT, SHIP, OCCUPIED_PORT } from "./GridCell";
 import CartesianCoords from "./CartesianCoordinates.js";
-import { when, MOVEMENT_EVENT } from "./event-bus.js";
+import { when } from "./event-bus.js";
+import { MOVEMENT_EVENT } from "./MovementEvent.js";
 import Ship from "./Ship.js";
 import Port from "./Port.js";
 const rowLen = 20;
@@ -65,11 +66,11 @@ export default class GridState {
   findMapObject(id) {
     const foundShip = this.ships.find(s => s.id === id);
     if (foundShip) {
-      return foundShip
+      return foundShip;
     }
     const foundPort = this.ports.find(p => p.id === id);
     if (foundPort) {
-      return foundPort
+      return foundPort;
     }
     throw new Error(`failed to find map object with id: ${id}`);
   }
