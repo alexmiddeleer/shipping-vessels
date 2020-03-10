@@ -1,6 +1,7 @@
 import { pushEvent, when } from "./event-bus.js";
 import TickEvent from "./TickEvent.js";
 import InitEvent, { INIT_EVENT } from "./InitEvent.js";
+import { MOVEMENT_EVENT } from "./MovementEvent.js";
 
 import { loadEvents } from "./event-storage";
 
@@ -31,7 +32,9 @@ export async function replayEvents() {
   // eslint-disable-next-line
   for (const event of loadedEvents) {
     pushEvent(event);
-    await sleep(Math.floor(TICK_LEN_MS / 2));
+    if (event.type === MOVEMENT_EVENT) {
+      await sleep(Math.floor(TICK_LEN_MS / 2));
+    }
   }
 }
 

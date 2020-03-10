@@ -8,6 +8,7 @@
       <span v-if="!paused">⏸</span>
     </button>
     <button :style="buttonStyles" @click="replay">Replay 🔃</button>
+    <button :style="buttonStyles" @click="reset">Reset</button>
     <Console />
   </div>
 </template>
@@ -18,6 +19,8 @@ import Console from "./components/Console.vue";
 import GridState from "./lib/GridState";
 import initEventLoop, { replayEvents } from "./lib/event-loop.js";
 import initShipMovement from "./lib/ship-movement.js";
+import { pushEvent } from "./lib/event-bus.js";
+import AppEvent from "./lib/AppEvent.js";
 
 export default {
   name: "App",
@@ -34,8 +37,7 @@ export default {
   },
   created: function() {
     sessionStorage.clear();
-    // eslint-disable-next-line
-    console.log("cleared session storage");
+    pushEvent(AppEvent.consoleEvent("storage cleared"));
     initEventLoop(this);
     initShipMovement(this);
   },
@@ -47,6 +49,12 @@ export default {
       this.paused = true;
       this.gridState = new GridState();
       replayEvents();
+    },
+    reset() {
+      this.gridState = new GridState();
+      pushEvent(AppEvent.consoleEvent("Grid cleared"));
+      sessionStorage.clear();
+      pushEvent(AppEvent.consoleEvent("storage cleared"));
     }
   }
 };

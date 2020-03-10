@@ -22,4 +22,8 @@ export default class AppEvent {
   static fromPojo(pojo = {}) {
     return new AppEvent(pojo.type, pojo.message, pojo.date);
   }
+
+  static consoleEvent(msg) {
+    return new AppEvent(DEBUG_EVENT, msg);
+  }
 }
