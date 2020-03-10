@@ -9,6 +9,13 @@ const columnLen = 20;
 
 export default class GridState {
   constructor() {
+    const rows = [];
+    this.rows = rows;
+    this.resetMapObjects();
+    this.initEventHandler();
+  }
+
+  resetMapObjects() {
     const ports = [
       new Port(5, 11, 1),
       new Port(12, 17, 2),
@@ -20,12 +27,9 @@ export default class GridState {
       new Ship(10, 18, 6, ports[1]),
       new Ship(16, 4, 7, ports[2])
     ];
-    const rows = [];
-    this.rows = rows;
     this.ships = ships;
     this.ports = ports;
     this.rebuildGrid();
-    this.initEventHandler();
   }
 
   rebuildGrid() {

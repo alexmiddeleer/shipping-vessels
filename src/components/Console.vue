@@ -31,6 +31,9 @@ export default {
         this.events.slice(1000);
       }
       this.events.push(e.detail);
+      if (e.detail.message === "CLEAR") {
+        this.events.length = 0;
+      }
     });
   }
 };

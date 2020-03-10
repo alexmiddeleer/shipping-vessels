@@ -29,7 +29,7 @@ async function onInit() {
 export async function replayEvents() {
   pushEvent(AppEvent.consoleEvent("Replaying events"));
   const loadedEvents = loadEvents();
-  pushEvent(AppEvent.consoleEvent("Loaded Events"));
+  pushEvent(AppEvent.consoleEvent(`Loaded ${loadedEvents.length} Events`));
   for (const event of loadedEvents) {
     pushEvent(event, { noStore: true });
     if (event.type === TICK_EVENT) {

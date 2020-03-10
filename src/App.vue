@@ -47,12 +47,13 @@ export default {
     },
     replay() {
       this.paused = true;
-      this.gridState = new GridState();
+      this.gridState.resetMapObjects();
       replayEvents();
     },
     reset() {
-      this.gridState = new GridState();
+      this.gridState.resetMapObjects();
       pushEvent(AppEvent.consoleEvent("Grid cleared"));
+      pushEvent(AppEvent.consoleEvent("CLEAR"));
       sessionStorage.clear();
       pushEvent(AppEvent.consoleEvent("storage cleared"));
     }
