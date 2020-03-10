@@ -12,5 +12,11 @@ module.exports = {
     "plugin:vue/recommended"
   ],
   plugins: ["eslint-plugin-vue"],
-  globals: { describe: true, it: true, expect: true }
+  globals: {
+    beforeEach: true,
+    jest: true,
+    describe: true,
+    it: true,
+    expect: true
+  }
 };

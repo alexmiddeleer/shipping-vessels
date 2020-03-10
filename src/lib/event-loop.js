@@ -1,7 +1,8 @@
 import { pushEvent, when } from "./event-bus.js";
 import TickEvent from "./TickEvent.js";
 import InitEvent, { INIT_EVENT } from "./InitEvent.js";
-import { MOVEMENT_EVENT } from "./MovementEvent.js";
+import { TICK_EVENT } from "./TickEvent.js";
+import AppEvent from "./AppEvent.js";
 
 import { loadEvents } from "./event-storage";
 
@@ -26,13 +27,12 @@ async function onInit() {
 }
 
 export async function replayEvents() {
+  pushEvent(AppEvent.consoleEvent("Replaying events"));
   const loadedEvents = loadEvents();
-  // eslint-disable-next-line
-  console.log("loadedEvents", loadedEvents);
-  // eslint-disable-next-line
+  pushEvent(AppEvent.consoleEvent("Loaded Events"));
   for (const event of loadedEvents) {
-    pushEvent(event);
-    if (event.type === MOVEMENT_EVENT) {
+    pushEvent(event, { noStore: true });
+    if (event.type === TICK_EVENT) {
       await sleep(Math.floor(TICK_LEN_MS / 2));
     }
   }
