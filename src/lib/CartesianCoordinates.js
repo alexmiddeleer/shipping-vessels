@@ -1,4 +1,4 @@
-export default class CartesianCoords {
+export default class CartesianCoordinates {
   constructor(x, y) {
     this.x = x;
     this.y = y;
@@ -11,5 +11,8 @@ export default class CartesianCoords {
   }
   toString() {
     return `x: ${this.x}, y: ${this.y}`;
+  }
+  static fromPojo(pojo) {
+    return new CartesianCoordinates(pojo.x, pojo.y);
   }
 }

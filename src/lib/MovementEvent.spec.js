@@ -3,17 +3,24 @@ import CartesianCoordinates from "./CartesianCoordinates.js";
 
 const coords = (x, y) => new CartesianCoordinates(x, y);
 
+const COORDS = { x: 0, y: 1 };
+
 describe("MovementEvent.fromPojo", function() {
   it("should work", function() {
-    expect(MovementEvent.fromPojo()).toBeInstanceOf(MovementEvent);
+    expect(
+      MovementEvent.fromPojo({
+        coords: COORDS,
+        oldCoords: COORDS
+      })
+    ).toBeInstanceOf(MovementEvent);
   });
 
   describe("with Object", function() {
     const pojo = {
       date: new Date(1),
       id: 1,
-      coords: new CartesianCoordinates(0, 0),
-      oldCoords: new CartesianCoordinates(0, 0),
+      coords: { x: 0, y: 0 },
+      oldCoords: { x: 0, y: 0 },
       type: MOVEMENT_EVENT
     };
     it("should have the correct props", function() {

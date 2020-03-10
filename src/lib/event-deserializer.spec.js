@@ -4,9 +4,15 @@ import TickEvent, { TICK_EVENT } from "./TickEvent.js";
 import InitEvent, { INIT_EVENT } from "./InitEvent.js";
 import AppEvent from "./AppEvent.js";
 
+const COORDS = { x: 0, y: 0 };
+
 describe("Event Deserializer", function() {
   it("should work for movement events", function() {
-    const result = eventDeserializer({ type: MOVEMENT_EVENT });
+    const result = eventDeserializer({
+      type: MOVEMENT_EVENT,
+      coords: COORDS,
+      oldCoords: COORDS
+    });
     expect(result).toBeInstanceOf(MovementEvent);
   });
   it("should work for app events", function() {

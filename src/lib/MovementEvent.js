@@ -1,4 +1,5 @@
 import AppEvent from "./AppEvent.js";
+import CartesianCoordinates from "./CartesianCoordinates.js";
 
 export const MOVEMENT_EVENT = "map-obj-move";
 
@@ -24,8 +25,8 @@ export default class MovementEvent extends AppEvent {
 
   static fromPojo(pojo = {}) {
     return new MovementEvent(
-      pojo.coords,
-      pojo.oldCoords,
+      CartesianCoordinates.fromPojo(pojo.coords),
+      CartesianCoordinates.fromPojo(pojo.oldCoords),
       pojo.id,
       pojo.date,
       pojo.message
