@@ -27,13 +27,19 @@ async function onInit() {
 }
 
 export async function replayEvents() {
-  pushEvent(AppEvent.consoleEvent("Replaying events"));
+  pushEvent(AppEvent.consoleEvent("Replaying events"), { noStore: true });
   const loadedEvents = loadEvents();
-  pushEvent(AppEvent.consoleEvent(`Loaded ${loadedEvents.length} Events`));
+  pushEvent(AppEvent.consoleEvent(`Loaded ${loadedEvents.length} Events`), {
+    noStore: true
+  });
   for (const event of loadedEvents) {
-    pushEvent(event, { noStore: true });
-    if (event.type === TICK_EVENT) {
+    if (event.type === INIT_EVENT) {
+      pushEvent(AppEvent.consoleEvent("Faux init event"), { noStore: true });
+    } else if (event.type === TICK_EVENT) {
+      pushEvent(AppEvent.consoleEvent("Faux tick event"), { noStore: true });
       await sleep(Math.floor(TICK_LEN_MS / 2));
+    } else {
+      pushEvent(event, { noStore: true });
     }
   }
 }
